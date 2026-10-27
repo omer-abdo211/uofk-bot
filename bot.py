@@ -131,6 +131,10 @@ CURRICULUM = {
 }
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # التحقق مما إذا كان المرسل هو المشرف أم لا
+    if update.effective_user.id != ADMIN_ID:
+        await update.message.reply_text("عذراً، رفع الملفات مقتصر على المشرفين فقط. يمكنك التصفح والتحميل بحرية! 📚")
+        return
     keyboard = []
     for code, name in SPECIALTIES.items():
         keyboard.append([InlineKeyboardButton(name, callback_data=f"spec_{code}")])
